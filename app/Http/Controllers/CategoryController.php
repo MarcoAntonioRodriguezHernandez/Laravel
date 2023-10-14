@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Books_Categories;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -12,7 +13,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $data['categories'] = Category::query()->paginate(10);
+        return view('category.index', $data);
     }
 
     /**
@@ -20,7 +22,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('category.create');
     }
 
     /**
@@ -28,7 +30,18 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $fileds = [
+            'name' => 'required|string|max:50', //Example: 'name' => 'Juan'
+        ];
+        $message = [
+            'name.required' => 'La categoria es requerido',
+            'name.max' => 'La categoria no debe exceder los 50 caracteres',
+        ];
+        $this->validate($request, $fileds, $message);
+
+        $categoryData = request()->except('_token');
+        Category::insert($categoryData);
+        return redirect(route('categories.index'))->with('message', 'Categoria agregada correctamente');
     }
 
     /**
@@ -58,8 +71,10 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        Books_Categories::where('category_id', '=', $id)->delete();
+        Category::destroy($id);
+        return redirect(route('categories.index'))->with('message', 'Categoria eliminado correctamente');
     }
 }

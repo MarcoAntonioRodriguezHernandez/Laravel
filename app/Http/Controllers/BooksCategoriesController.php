@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Books_Categories;
+use App\Models\Category;
+use App\Models\Author;
 use Illuminate\Http\Request;
 
 class BooksCategoriesController extends Controller
@@ -12,7 +15,9 @@ class BooksCategoriesController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        $data['books'] = Book::query()->paginate(10);
+        return view('books_categories.index', $data,compact('categories'));
     }
 
     /**
@@ -20,7 +25,9 @@ class BooksCategoriesController extends Controller
      */
     public function create()
     {
-        //
+        $authors = Author::all();
+        $categories = Category::all();
+        return view('books_categories.create', compact('categories', 'authors'));
     }
 
     /**
@@ -28,7 +35,7 @@ class BooksCategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**

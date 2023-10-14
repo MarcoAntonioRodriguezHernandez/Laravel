@@ -39,10 +39,10 @@
                 </ul>
             </div>
             <a class="navbar-brand" href="{{route('authors.index')}}"> Autores</a>
-            <a class="navbar-brand" href="{{route('book.index')}}"> Libros</a>
+            <a class="navbar-brand" href="{{route('books.index')}}"> Libros</a>
             <a class="navbar-brand" href="{{route('people.index')}}"> Usuarios</a>
-            <a class="navbar-brand" href="{{route('loan.index')}}"> Prestamos</a>
-            <a class="navbar-brand" href="{{route('category.index')}}"> Categorias</a>
+            <a class="navbar-brand" href="{{route('loans.index')}}"> Prestamos</a>
+            <a class="navbar-brand" href="{{route('categories.index')}}"> Categorias</a>
         </div>
     </nav>
 
