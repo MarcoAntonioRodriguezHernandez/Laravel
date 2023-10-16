@@ -5,7 +5,7 @@
         <form action="{{route('categories.update',$category->id)}}" method="post">
             @csrf
             {{method_field('PUT')}}
-            @include ('Category.form', ['mode'=>'Editar'])
+            @include ('category.form', ['mode'=>'Editar'])
         </form>
         <!--end::Form-->
     </div>

@@ -14,7 +14,7 @@ class AuthorController extends Controller
      */
     public function index(Request $request)
     {
-        $authors = Author::query()->paginate(10);
+        $authors = Author::paginate(10);
         return view('author.index', compact('authors'));
     }
 
@@ -37,16 +37,15 @@ class AuthorController extends Controller
         $authorData->surname = $request->surname; //Example of recived data: 'Perez'
         $authorData->gender = $request->gender; //Example of recived data: 'Hombre'
         $authorData->age = $request->age; //Example of recived data: 20
+        $authorData->save();
         $data = [
             'message' => 'Autor agregado correctamente',
             'author' => $authorData
         ];
         $authorData = request()->except('_token');
-        Author::insert($authorData);
         $jsonResponse = $request->jsonResponse;
-        if($jsonResponse === 1){
+        if($jsonResponse != 0){
             return response()->json($data);
-
         }else{
             return redirect(route('authors.index'))->with('message', 'Autor agregado correctamente');
         }

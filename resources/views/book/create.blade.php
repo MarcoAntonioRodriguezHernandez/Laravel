@@ -2,9 +2,9 @@
 @section('content')
     <div class="container">
         <!-- begin::Form -->
-        <form action="{{route('booksCategories.store')}}" method="post">
+        <form action="{{route('books.store')}}" method="post">
             @csrf
-            @include ('books_categories.form', ['mode'=>'Crear'])
+            @include ('book.form', ['mode'=>'Crear'])
         </form>
         <!-- end::Form -->
     </div>

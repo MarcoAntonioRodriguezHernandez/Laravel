@@ -15,9 +15,14 @@ class BooksCategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        $data['books'] = Book::query()->paginate(10);
-        return view('books_categories.index', $data,compact('categories'));
+        $booksCategories = Books_Categories::paginate(10);
+        $books = [];
+        $booksData = Book::all();
+        foreach($booksData as $book) $books[$book->id] = $book;
+        $categoriesData = Category::all();
+        foreach($categoriesData as $category) $categories[$category->id] = $category;
+
+        return view('books_categories.index', compact('booksCategories', 'books', 'categories'));
     }
 
     /**
@@ -25,9 +30,9 @@ class BooksCategoriesController extends Controller
      */
     public function create()
     {
-        $authors = Author::all();
+        $books = Book::all();
         $categories = Category::all();
-        return view('books_categories.create', compact('categories', 'authors'));
+        return view('books_categories.create', compact('books', 'categories'));
     }
 
     /**
@@ -35,7 +40,18 @@ class BooksCategoriesController extends Controller
      */
     public function store(Request $request)
     {
-
+        $fileds = [
+            'book_id' => 'required', //Example: 'book_id' => '1'
+            'category_id' => 'required', //Example: 'category_id' => '1'
+        ];
+        $message = [
+            'book_id.required' => 'El nombre del libro es requerido',
+            'category_id.required' => 'El nombre de la categoria es requerido',
+        ];
+        $this->validate($request, $fileds, $message);
+        $booksCategoriesData = request()->except('_token');
+        Books_Categories::insert($booksCategoriesData);
+        return redirect()->route('booksCategories.index')->with('success', '¡La categoria del libro se ha registrado con éxito!');
     }
 
     /**
@@ -49,24 +65,39 @@ class BooksCategoriesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Books_Categories $books_Categories)
+    public function edit($id)
     {
-        //
+        $books = Book::all();
+        $categories = Category::all();
+        $booksCategories = Books_Categories::findOrFail($id);
+        return view('books_categories.edit', compact('books', 'categories', 'booksCategories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Books_Categories $books_Categories)
+    public function update(Request $request,$id)
     {
-        //
+        $fileds = [
+            'book_id' => 'required', //Example: 'book_id' => '1'
+            'category_id' => 'required', //Example: 'category_id' => '1'
+        ];
+        $message = [
+            'book_id.required' => 'El nombre del libro es requerido',
+            'category_id.required' => 'El nombre de la categoria es requerido',
+        ];
+        $this->validate($request, $fileds, $message);
+        $booksCategoriesData = request()->except('_token', '_method');
+        Books_Categories::where('id', '=', $id)->update($booksCategoriesData);
+        return redirect()->route('booksCategories.index')->with('success', '¡La categoria del libro se ha actualizado con éxito!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Books_Categories $books_Categories)
+    public function destroy($id)
     {
-        //
+        Books_Categories::destroy($id);
+        return redirect()->route('booksCategories.index')->with('success', '¡La categoria del libro se ha eliminado con éxito!');
     }
 }

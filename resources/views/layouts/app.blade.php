@@ -12,9 +12,9 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
 </head>
 <body>
 <div id="app">
@@ -43,6 +43,7 @@
             <a class="navbar-brand" href="{{route('people.index')}}"> Usuarios</a>
             <a class="navbar-brand" href="{{route('loans.index')}}"> Prestamos</a>
             <a class="navbar-brand" href="{{route('categories.index')}}"> Categorias</a>
+            <a class="navbar-brand" href="{{route('booksCategories.index')}}"> Relación</a>
         </div>
     </nav>
 

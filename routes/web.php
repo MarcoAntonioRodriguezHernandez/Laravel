@@ -33,13 +33,13 @@ Route::get('/authors/showMore/{authors}', [AuthorController::class, 'show'])->na
 Route::delete('/authors/{authors}', [AuthorController::class, 'destroy'])->name('authors.destroy');
 
 //Book Routes
-Route::get('/books', [BooksCategoriesController::class, 'index'])->name('books.index');
-Route::get('/books/create', [BooksCategoriesController::class, 'create'])->name('books.create');
-Route::post('/books', [BooksCategoriesController::class, 'store'])->name('books.store');
-Route::get('/books/edit/{books}', [BooksCategoriesController::class, 'edit'])->name('books.edit');
-Route::put('/books/{books}', [BooksCategoriesController::class, 'update'])->name('books.update');
-Route::get('/books/showMore/{books}', [BooksCategoriesController::class, 'get'])->name('books.show');
-Route::delete('/books/{books}', [BooksCategoriesController::class, 'destroy'])->name('books.destroy');
+Route::get('/books', [BookController::class, 'index'])->name('books.index');
+Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
+Route::post('/books', [BookController::class, 'store'])->name('books.store');
+Route::get('/books/edit/{books}', [BookController::class, 'edit'])->name('books.edit');
+Route::put('/books/{books}', [BookController::class, 'update'])->name('books.update');
+Route::get('/books/showMore/{books}', [BookController::class, 'show'])->name('books.show');
+Route::delete('/books/{books}', [BookController::class, 'destroy'])->name('books.destroy');
 
 //Person Routes
 Route::get('/people', [PersonController::class, 'index'])->name('people.index');
@@ -66,6 +66,15 @@ Route::post('/categories', [CategoryController::class, 'store'])->name('categori
 Route::get('/categories/edit/{categories}', [CategoryController::class, 'edit'])->name('categories.edit');
 Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
 Route::delete('/categories/{categories}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+
+//BooksCategories Routes
+Route::get('/booksCategories', [BooksCategoriesController::class, 'index'])->name('booksCategories.index');
+Route::get('/booksCategories/create', [BooksCategoriesController::class, 'create'])->name('booksCategories.create');
+Route::post('/booksCategories', [BooksCategoriesController::class, 'store'])->name('booksCategories.store');
+Route::get('/booksCategories/edit/{booksCategories}', [BooksCategoriesController::class, 'edit'])->name('booksCategories.edit');
+Route::put('/booksCategories/{booksCategories}', [BooksCategoriesController::class, 'update'])->name('booksCategories.update');
+Route::get('/booksCategories/showMore/{booksCategories}', [BooksCategoriesController::class, 'show'])->name('booksCategories.show');
+Route::delete('/booksCategories/{booksCategories}', [BooksCategoriesController::class, 'destroy'])->name('booksCategories.destroy');
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

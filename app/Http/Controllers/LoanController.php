@@ -15,9 +15,7 @@ class LoanController extends Controller
      */
     public function index()
     {
-        //
-
-        $data['loans'] = Loan::query()->paginate(10);
+        $data['loans'] = Loan::paginate(10);
         return view('loan.index', $data);
     }
 
@@ -30,6 +28,13 @@ class LoanController extends Controller
         $people = Person::all();
         $books = Book::all();
         return view('loan.create',compact('people','books'));
+    }
+
+    public function show($id)
+    {
+        //
+        $loan = Loan::findOrFail($id);
+        return view('loan.show', compact('loan'));
     }
 
     /**
@@ -54,7 +59,7 @@ class LoanController extends Controller
         $this->validate($request, $fileds, $message);
         $loanData = request()->except('_token');
         Loan::insert($loanData);
-        return redirect(route('loan.index'))->with('message', 'Prestamo agregado correctamente');
+        return redirect(route('loans.index'))->with('message', 'Prestamo agregado correctamente');
     }
 
     /**
@@ -96,7 +101,7 @@ class LoanController extends Controller
         Loan::where('id', '=', $id)->update($loanData);
 
         $loan = Loan::findOrFail($id);
-        return redirect(route('loan.index'))->with('message', 'Prestamo actualizado correctamente');
+        return redirect(route('loans.index'))->with('message', 'Prestamo actualizado correctamente');
     }
 
     /**
@@ -106,6 +111,6 @@ class LoanController extends Controller
     {
         //
         Loan::destroy($id);
-        return redirect(route('loan.index'))->with('message', 'Prestamo eliminado correctamente');
+        return redirect(route('loans.index'))->with('message', 'Prestamo eliminado correctamente');
     }
 }

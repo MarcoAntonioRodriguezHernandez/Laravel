@@ -31,7 +31,8 @@
                placeholder="Ej. 45"></label><br>
 <!--end::All to get the age-->
 @if ($mode == 'Crear')
-    <label for="jsonResponse" style='width: 100%' class="form-label"> JsonResponse<input type="checkbox" class="form-check" name="jsonResponse" id="jsonResponse" value="1">
+    <label for="jsonResponse" style='width: 100%' class="form-label"> JsonResponse
+        <input type="checkbox" class="form-check" name="jsonResponse" id="jsonResponse" value="1">
     </label>
 @endif
 <br><input class="btn btn-success" type="submit" value="{{$mode}} Registro">

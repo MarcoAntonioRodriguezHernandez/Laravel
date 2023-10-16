@@ -9,31 +9,30 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-
-        <h1>Prestamos</h1>
-        <a href="{{route('loans.create')}}" class="btn btn-success">Agregar nuevo prestamo</a>
+        <h1>Libros</h1>
+        <a href="{{route('books.create')}}" class="btn btn-success">Agregar nuevo libro</a>
         <!--begin::Table-->
         <table class="table table-light">
             <thead class="thead-light">
             <tr>
-                <th>Fecha del prestamo</th>
-                <th>Fecha de devolución</th>
-                <th>Nombre del prestatario</th>
-                <th>Nombre del Libro</th>
+                <th>Titulo</th>
+                <th>Editorial</th>
+                <th>ISBN</th>
+                <th>Autor</th>
                 <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($loans as $loan)
+            @foreach($books as $book)
                 <tr>
-                    <td>{{ $loan->date_loan}}</td>
-                    <td>{{ $loan->date_return}}</td>
-                    <td>{{ $loan->person->name}} {{ $loan->person->surname}}</td>
-                    <td>{{ $loan->book->title}}</td>
-                    <td><a href="{{route('loans.show',$loan->id)}}" class="btn btn-primary">Ver más</a> |
-                        <a href="{{route('loans.edit',$loan->id)}}" class="btn btn-warning"> Editar </a> |
-                        <form action="{{route('loans.destroy',$loan->id,$loan->person->id)}}" class="d-inline"
-                              method="post">
+                    <td>{{ $book->title }}</td>
+                    <td>{{ $book->editorial}}</td>
+                    <td>{{ $book->ISBN}}</td>
+                    <td>{{ $book->author->name}} {{ $book->author->surname}}</td>
+                    <td><a href="{{route('books.show',$book->id)}}" class="btn btn-primary">Ver más</a> |
+                        <a href="{{route('books.edit',$book->id)}}" class="btn btn-warning"> Editar </a> |
+
+                        <form action="{{route('books.destroy',$book->id)}}" class="d-inline" method="post">
                             @csrf
                             {{method_field('DELETE')}}
                             <input class="btn btn-danger" type="submit"
@@ -46,6 +45,6 @@
             </tbody>
         </table>
         <!--end::Table-->
-        {{$loans->links()}}
+        {{$books->links()}}
     </div>
 @endsection

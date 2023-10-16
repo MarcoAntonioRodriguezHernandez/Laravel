@@ -9,5 +9,12 @@ class Loan extends Model
 {
     use HasFactory;
     public $timestamps = false;
-
+    public function person()
+    {
+        return $this->belongsTo(Person::class);
+    }
+    public function book()
+    {
+        return $this->belongsTo(Book::class);
+    }
 }

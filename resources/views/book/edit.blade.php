@@ -2,10 +2,10 @@
 @section('content')
     <div class="container">
         <!-- begin::Form -->
-        <form action="{{route('booksCategories.update',$booksCategories->id)}}" method="post">
+        <form action="{{route('books.update',$book->id)}}" method="post">
             @csrf
             {{method_field('PUT')}}
-            @include ('books_categories.form', ['mode'=>'Editar'])
+            @include ('book.form', ['mode'=>'Editar'])
         </form>
         <!-- end::Form -->
     </div>

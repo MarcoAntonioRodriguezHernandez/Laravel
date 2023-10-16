@@ -13,7 +13,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data['categories'] = Category::query()->paginate(10);
+        $data['categories'] = Category::paginate(10);
         return view('category.index', $data);
     }
 
@@ -55,17 +55,29 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit(Request $request,$id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('category.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request,$id)
     {
-        //
+        $fileds = [
+            'name' => 'required|string|max:50', //Example: 'name' => 'Juan'
+        ];
+        $message = [
+            'name.required' => 'El nombre es requerido',
+            'name.max' => 'El nombre no debe exceder los 50 caracteres',
+        ];
+        $this->validate($request,$fileds, $message);
+        $categoryData = request()->except(['_token', '_method']);
+        Category::where('id', '=', $id)->update($categoryData);
+        $category = Category::findOrFail($id);
+        return redirect(route('categories.index'))->with('message', 'Categoría actualizado correctamente');
     }
 
     /**

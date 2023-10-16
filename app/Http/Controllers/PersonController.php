@@ -13,7 +13,7 @@ class PersonController extends Controller
      */
     public function index()
     {
-        $data['people'] = Person::query()->paginate(10);
+        $data['people'] = Person::paginate(10);
         return view('person.index', $data);
     }
 
@@ -34,7 +34,7 @@ class PersonController extends Controller
             'name' => 'required|string|max:50', //Example: 'name' => 'Juan'
             'surname' => 'required|string|max:50', //Example: 'surname' => 'Perez'
             'address' => 'required|string|max:200', //Example: 'address' => 'Calle 123'
-            'phone' => '' //Example: 'phone' => '123456789'
+            'phone' => 'required' //Example: 'phone' => '123456789'
         ];
         $message = [
             'name.required' => 'El nombre es requerido',
@@ -43,13 +43,13 @@ class PersonController extends Controller
             'surname.max' => 'El apellido no debe exceder los 50 caracteres',
             'address.required' => 'La dirección es requerida',
             'address.max' => 'La dirección no debe exceder los 200 caracteres',
-            'phone.required' => 'El telefono es requerida',
+            'phone.required' => 'El telefono es requerido',
         ];
         $this->validate($request, $fileds, $message);
 
         $personData = request()->except('_token');
         Person::insert($personData);
-        return redirect(route('person.index'))->with('message', 'Usuario agregado correctamente');
+        return redirect(route('people.index'))->with('message', 'Usuario agregado correctamente');
     }
 
     /**
@@ -85,9 +85,9 @@ class PersonController extends Controller
             'name.max' => 'El nombre no debe exceder los 50 caracteres',
             'surname.required' => 'El apellido es requerido',
             'surname.max' => 'El apellido no debe exceder los 50 caracteres',
-            'address.required' => 'El genero es requerido',
-            'address.max' => 'El genero no debe exceder los 50 caracteres',
-            'phone.required' => 'La edad es requerida',
+            'address.required' => 'La dirección es requerido',
+            'address.max' => 'La dirección no debe exceder los 200 caracteres',
+            'phone.required' => 'El teléfono es requerida',
         ];
         $this->validate($request,$fileds, $message);
         $peopleData = request()->except(['_token', '_method']);
@@ -103,6 +103,6 @@ class PersonController extends Controller
     {
         Loan::where('person_id', '=', $id)->delete();
         Person::destroy($id);
-        return redirect(route('person.index'))->with('message', 'Usuario eliminado correctamente');
+        return redirect(route('people.index'))->with('message', 'Usuario eliminado correctamente');
     }
 }
