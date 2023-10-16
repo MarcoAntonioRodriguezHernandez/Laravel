@@ -22,7 +22,7 @@
         <label for="age" style="width: 100%" class="form-label">Teléfono
             <br><input disabled class="form-control" type="number" name="age" id="age" value="{{$person->phone}}"></label><br>
         <!--end::All to get the age-->
-        <a class="btn btn-primary" href="{{route('authors.index')}}">Regresar</a>
+        <a class="btn btn-primary" href="{{route('people.index')}}">Regresar</a>
     </div>
 
 @endsection

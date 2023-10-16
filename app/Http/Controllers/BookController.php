@@ -25,9 +25,8 @@ class BookController extends Controller
      */
     public function create()
     {
-        $authors = Author::all();
-        $categories = Category::all();
-        return view('book.create', compact('categories', 'authors'));
+
+        return view('book.create');
     }
 
     /**
@@ -40,7 +39,7 @@ class BookController extends Controller
             'editorial' => 'required|string|max:50', //Example: 'editorial' => 'Editorial Santillana'
             'year_edition' => 'required', //Example: 'year_edition' => '2021-05-05'
             'isbn' => 'required', //Example: 'isbn' => '123456789'
-            'author_name' //Example: 'author_name' => 'Charles Perrault'
+            'author_name' => 'required|integer|exists:authors,id' //Example: 'author_name' => 'Charles Perrault'
         ];
         $message = [
             'title.required' => 'El titulo es requerido',

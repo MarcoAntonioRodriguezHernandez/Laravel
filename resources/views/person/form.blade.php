@@ -1,5 +1,8 @@
-<h1>{{$mode}} Usuario</h1>
-
+@if ($mode == 'Crear')
+    <h1>{{$mode}} Usuarios</h1>
+@else
+    <h1>{{$mode}} Usuario {{$people->name}} {{$people->surname}}</h1>
+@endif
 @if(count($errors)>0)
     <div class="alert alert-danger" role="alert">
         <ul>

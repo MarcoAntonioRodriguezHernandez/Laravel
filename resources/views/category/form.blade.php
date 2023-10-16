@@ -1,5 +1,8 @@
-<h1>{{$mode}} Categorias</h1>
-
+@if ($mode == 'Crear')
+    <h1>{{$mode}} Categoria</h1>
+@else
+    <h1>{{$mode}} categoria {{$category->name}}</h1>
+@endif
 @if(count($errors)>0)
     <div class="alert alert-danger" role="alert">
         <ul>

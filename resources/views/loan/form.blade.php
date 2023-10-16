@@ -1,5 +1,8 @@
-<h1>{{$mode}} Prestamos</h1>
-
+@if ($mode == 'Crear')
+    <h1>{{$mode}} Prestamo</h1>
+@else
+    <h1>{{$mode}} prestamo del día {{$loan->date_loan}}</h1>
+@endif
 @if(count($errors)>0)
     <div class="alert alert-danger" role="alert">
         <ul>

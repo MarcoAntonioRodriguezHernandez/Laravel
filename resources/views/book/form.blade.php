@@ -1,4 +1,8 @@
+@if ($mode == 'Crear')
 <h1>{{$mode}} Libros</h1>
+@else
+    <h1>{{$mode}} libro {{$book->title}}</h1>
+@endif
 
 @if(count($errors)>0)
     <div class="alert alert-danger" role="alert">

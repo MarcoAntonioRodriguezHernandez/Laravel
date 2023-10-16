@@ -1,4 +1,8 @@
-<h1>{{$mode}} Autor</h1>
+@if ($mode == 'Crear')
+    <h1>{{$mode}} Autor</h1>
+@else
+    <h1>{{$mode}} autor {{$author->name}} {{$author->surname}}</h1>
+@endif
 @if(count($errors)>0) <!--This if is used to show the alert of error if exist-->
 <div class="alert alert-danger" role="alert">
         <ul>
