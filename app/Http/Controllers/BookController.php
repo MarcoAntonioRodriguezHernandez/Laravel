@@ -25,8 +25,8 @@ class BookController extends Controller
      */
     public function create()
     {
-
-        return view('book.create');
+        $authors = Author::all();
+        return view('book.create',compact('authors'));
     }
 
     /**
@@ -39,7 +39,6 @@ class BookController extends Controller
             'editorial' => 'required|string|max:50', //Example: 'editorial' => 'Editorial Santillana'
             'year_edition' => 'required', //Example: 'year_edition' => '2021-05-05'
             'isbn' => 'required', //Example: 'isbn' => '123456789'
-            'author_name' => 'required|integer|exists:authors,id' //Example: 'author_name' => 'Charles Perrault'
         ];
         $message = [
             'title.required' => 'El titulo es requerido',
@@ -48,7 +47,6 @@ class BookController extends Controller
             'editorial.max' => 'La editorial no debe exceder los 50 caracteres',
             'year_edition.required' => 'La fecha de edición es requerida',
             'isbn.required' => 'El ISBN es requerido',
-            'author_name.required' => 'El autor es requerido',
         ];
         $this->validate($request, $fileds, $message);
 
